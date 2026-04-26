@@ -110,7 +110,7 @@ class ScanReporter:
             "issues_found": report.issues_found,
             "findings": [_serialize_finding(f) for f in report.findings],
         }
-        with open(report.report_path, "w") as fh:
+        with open(report.report_path, "w", encoding="utf-8") as fh:
             json.dump(payload, fh, indent=2)
 
     def render(self) -> None:
