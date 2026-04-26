@@ -1,0 +1,201 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "apollo-access-scanner"
+dynamic = ["version"]
+description = "Cloud IAM and access policy security scanner — a HorizonSec module"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+keywords = ["security", "cloud", "iam", "aws", "azure", "gcp", "scanner", "horizonsec"]
+authors = [
+    {name = "HorizonSec Team"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+]
+dependencies = [
+    "boto3>=1.40.0",
+    "botocore>=1.40.0",
+    "typer>=0.20.0",
+    "rich>=13.0.0",
+    "pyfiglet>=1.0.4",
+    "horizon-core @ git+https://github.com/HorizonSec/horizon-core.git@mainline",
+]
+
+[project.scripts]
+apollo = "apollo_access_scanner.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/HorizonSec/apollo-access-scanner"
+Repository = "https://github.com/HorizonSec/apollo-access-scanner"
+Issues = "https://github.com/HorizonSec/apollo-access-scanner/issues"
+
+[project.optional-dependencies]
+aws = [
+    "boto3-stubs>=1.40.0",
+    "mypy-boto3-iam>=1.40.0",
+    "mypy-boto3-s3>=1.40.0",
+    "mypy-boto3-dynamodb>=1.40.0",
+    "mypy-boto3-lambda>=1.40.0",
+    "mypy-boto3-sns>=1.40.0",
+    "mypy-boto3-sqs>=1.40.0",
+    "mypy-boto3-glue>=1.40.0",
+    "mypy-boto3-sts>=1.40.0",
+]
+dev = [
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "flake8-pyproject>=1.2.3",
+    "mypy>=1.0.0",
+    "pytest>=8.0.0",
+    "pytest-cov>=4.0.0",
+    "bandit>=1.7.0",
+]
+
+[tool.hatch.version]
+path = "apollo_access_scanner/__about__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["apollo_access_scanner"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "apollo_access_scanner/",
+    "README.md",
+    "LICENSE",
+]
+exclude = [
+    "tests/",
+    ".github/",
+    "*.pyc",
+    "__pycache__/",
+]
+
+[tool.hatch.envs.default]
+dependencies = [
+    "boto3",
+    "botocore",
+    "typer",
+    "rich",
+    "pyfiglet",
+    "boto3-stubs",
+    "mypy-boto3-dynamodb",
+    "mypy-boto3-glue",
+    "mypy-boto3-iam",
+    "mypy-boto3-lambda",
+    "mypy-boto3-s3",
+    "mypy-boto3-sns",
+    "mypy-boto3-sqs",
+    "mypy-boto3-sts",
+    "pytest",
+    "pytest-cov",
+]
+
+[tool.hatch.envs.dev]
+dependencies = [
+    "boto3",
+    "botocore",
+    "typer",
+    "rich",
+    "pyfiglet",
+    "boto3-stubs",
+    "mypy-boto3-dynamodb",
+    "mypy-boto3-glue",
+    "mypy-boto3-iam",
+    "mypy-boto3-lambda",
+    "mypy-boto3-s3",
+    "mypy-boto3-sns",
+    "mypy-boto3-sqs",
+    "mypy-boto3-sts",
+    "black",
+    "flake8",
+    "flake8-pyproject",
+    "isort",
+    "mypy",
+    "pytest",
+    "pytest-cov",
+    "bandit",
+]
+
+[[tool.hatch.envs.all.matrix]]
+python = ["3.10", "3.11", "3.12", "3.13"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests}"
+test-cov = "coverage run -m pytest {args:tests}"
+cov-report = [
+    "- coverage combine",
+    "coverage report",
+]
+format = [
+    "isort apollo_access_scanner tests",
+    "black apollo_access_scanner tests",
+]
+pre-build = [
+    "isort apollo_access_scanner tests",
+    "black --check apollo_access_scanner tests",
+    "mypy apollo_access_scanner",
+    "flake8 apollo_access_scanner tests",
+    "bandit -r apollo_access_scanner",
+]
+
+[tool.black]
+line-length = 120
+target-version = ["py310", "py311", "py312", "py313"]
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.flake8]
+max-line-length = 120
+extend-ignore = ["E203", "W503"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+show_error_codes = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v"
+
+[tool.coverage.run]
+source = ["apollo_access_scanner"]
+omit = ["*/tests/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+skips = ["B101"]
+confidence = "medium"
+severity = "medium"
