@@ -5,7 +5,7 @@ from datetime import datetime
 import typer
 from botocore.exceptions import BotoCoreError, ClientError, NoCredentialsError
 
-from apollo_access_scanner.core.reporting import ScanReport, make_compliance_finding
+from apollo_access_scanner.core.reporting import ScanReport
 from apollo_access_scanner.providers.aws.aws_policy_collector import AWSPolicyCollector
 from apollo_access_scanner.providers.aws.resources.iam import IAMService
 from apollo_access_scanner.types.base import CloudProviderBase
