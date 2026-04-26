@@ -1,7 +1,6 @@
 """AWS provider implementation."""
 
 from datetime import datetime
-from typing import Optional
 
 import typer
 from botocore.exceptions import BotoCoreError, ClientError, NoCredentialsError
