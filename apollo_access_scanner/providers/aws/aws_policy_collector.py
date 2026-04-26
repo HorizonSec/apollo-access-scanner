@@ -47,8 +47,10 @@ class AWSPolicyCollector:
                             policy_data["resource_id"],
                         )
                     )
-            except Exception:
-                pass
+            except ClientError as exc:
+                print(f"Failed to scan AWS service '{service_name}' due to AWS API error: {exc}")
+            except Exception as exc:
+                print(f"Failed to scan AWS service '{service_name}' due to unexpected error: {exc}")
 
         return findings
 
