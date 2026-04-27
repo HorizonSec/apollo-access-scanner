@@ -90,7 +90,11 @@ class IAMService(AWSServiceBase):
                 VersionId=policy.get("DefaultVersionId"),
             )
             policy_doc = response["PolicyVersion"]["Document"]
-            for statement in policy_doc.get("Statement", []):
+            raw_statements = policy_doc.get("Statement", [])
+            statements = [raw_statements] if isinstance(raw_statements, dict) else raw_statements
+            if not isinstance(statements, list):
+                statements = []
+            for statement in statements:
                 if self._has_admin_permissions(statement):
                     issues.append(f"Policy {policy_name}: Administrative permissions (*:*) detected")
                 if self._has_wildcard_resources(statement):
