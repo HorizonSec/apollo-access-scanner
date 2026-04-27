@@ -49,6 +49,9 @@ class IAMPolicyAnalyzer:
     ) -> List[ComplianceFinding]:
         findings: List[ComplianceFinding] = []
 
+        effect = statement.get("Effect", "Allow")
+        if effect != "Allow":
+            return findings
         if self._has_external_access(statement):
             findings.append(
                 make_compliance_finding(
