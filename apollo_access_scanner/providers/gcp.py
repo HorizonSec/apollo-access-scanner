@@ -21,5 +21,8 @@ class GCPProvider(CloudProviderBase):
         if creds_path:
             return GCPCreds(creds_path=creds_path)
 
-        creds_json: str = typer.prompt("Paste your GCP service account JSON")
+        creds_json: str = typer.prompt(
+            "Paste your GCP service account JSON",
+            hide_input=True,
+        )
         return GCPCreds(creds_json=creds_json)
