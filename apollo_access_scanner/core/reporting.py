@@ -7,6 +7,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, List
 
+from apollo_access_scanner.__about__ import __version__
 from horizon_core.reporting.models.ocsf import (
     ActivityID,
     ComplianceFinding,
@@ -19,7 +20,7 @@ from rich.table import Table
 
 _METADATA = Metadata(
     version="1.3.0",
-    product={"name": "Apollo Access Scanner", "version": "1.0.0"},
+    product={"name": "Apollo Access Scanner", "version": __version__},
 )
 
 _SEVERITY_MAP = {

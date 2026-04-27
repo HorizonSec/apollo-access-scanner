@@ -99,6 +99,15 @@ class IAMPolicyAnalyzer:
 
         return findings
 
+    def _extract_account_id(self, principal: str) -> str:
+        """Extract account ID from an ARN or bare 12-digit account ID string."""
+        if principal.startswith("arn:"):
+            parts = principal.split(":")
+            return parts[4] if len(parts) > 4 else ""
+        if principal.isdigit() and len(principal) == 12:
+            return principal
+        return ""
+
     def _has_external_access(self, statement: Dict[str, Any]) -> bool:
         principals = statement.get("Principal", {})
         if isinstance(principals, dict):
@@ -106,7 +115,10 @@ class IAMPolicyAnalyzer:
             if isinstance(aws_principals, str):
                 aws_principals = [aws_principals]
             for principal in aws_principals:
-                if isinstance(principal, str) and self.account_id not in principal and principal != "*":
+                if not isinstance(principal, str) or principal == "*":
+                    continue
+                account_id = self._extract_account_id(principal)
+                if account_id and account_id != self.account_id:
                     return True
         return False
 

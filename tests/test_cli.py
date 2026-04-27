@@ -5,7 +5,7 @@ from unittest.mock import Mock, patch
 import pytest
 from typer.testing import CliRunner
 
-from apollo_access_scanner.cli import cli_wrapper, scan
+from apollo_access_scanner.cli import cli_wrapper
 
 
 @pytest.fixture
