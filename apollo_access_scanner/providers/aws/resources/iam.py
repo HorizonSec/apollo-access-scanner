@@ -1,6 +1,6 @@
 """AWS IAM policy scanner."""
 
-from typing import TYPE_CHECKING, Any, Dict, List
+from typing import TYPE_CHECKING, Any, Dict, List, cast
 
 from botocore.exceptions import ClientError
 
@@ -48,7 +48,7 @@ class IAMService(AWSServiceBase):
                         continue
                     try:
                         response = iam.get_policy_version(PolicyArn=policy_arn, VersionId=version_id)
-                        policy_doc = response["PolicyVersion"]["Document"]
+                        policy_doc = cast(Dict[str, Any], response["PolicyVersion"]["Document"])
                         findings.extend(
                             analyzer.analyze_policy(
                                 policy_doc,

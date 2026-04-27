@@ -28,7 +28,7 @@ class ApolloScanner:
 
         choice = typer.prompt("Select a provider by number", type=int)
         if 1 <= choice <= len(provider_names):
-            return provider_names[choice - 1]
+            return str(provider_names[choice - 1])
         return None
 
     def run_interactive_scan(self) -> None:

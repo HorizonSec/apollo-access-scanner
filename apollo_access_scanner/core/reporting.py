@@ -5,7 +5,7 @@ import json
 import os
 from datetime import datetime
 from enum import Enum
-from typing import Any, List
+from typing import Any, Dict, List
 
 from horizon_core.reporting.models.ocsf import (
     ActivityID,
@@ -69,9 +69,10 @@ class _FindingEncoder(json.JSONEncoder):
         return super().default(obj)
 
 
-def _serialize_finding(finding: ComplianceFinding) -> dict:
+def _serialize_finding(finding: ComplianceFinding) -> Dict[str, Any]:
     raw = dataclasses.asdict(finding)
-    return json.loads(json.dumps(raw, cls=_FindingEncoder))
+    result: Dict[str, Any] = json.loads(json.dumps(raw, cls=_FindingEncoder))
+    return result
 
 
 @dataclasses.dataclass

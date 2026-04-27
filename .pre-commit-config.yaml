@@ -1,0 +1,24 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.0
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        entry: hatch run dev:mypy
+        language: system
+        types: [python]
+        args: [apollo_access_scanner]
+        pass_filenames: false
+
+      - id: pytest
+        name: pytest
+        entry: hatch run test
+        language: system
+        types: [python]
+        pass_filenames: false
