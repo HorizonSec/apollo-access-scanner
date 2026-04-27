@@ -7,7 +7,6 @@ import pytest
 from apollo_access_scanner.core.reporting import ComplianceFinding
 from apollo_access_scanner.providers.aws.resources.iam_policy_analyzer import IAMPolicyAnalyzer
 
-
 ACCOUNT_ID = "123456789012"
 
 

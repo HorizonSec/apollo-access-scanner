@@ -56,10 +56,7 @@ aws = [
     "mypy-boto3-sts>=1.40.0",
 ]
 dev = [
-    "black>=23.0.0",
-    "isort>=5.12.0",
-    "flake8>=6.0.0",
-    "flake8-pyproject>=1.2.3",
+    "ruff>=0.4.0",
     "mypy>=1.0.0",
     "pytest>=8.0.0",
     "pytest-cov>=4.0.0",
@@ -121,10 +118,7 @@ dependencies = [
     "mypy-boto3-sns",
     "mypy-boto3-sqs",
     "mypy-boto3-sts",
-    "black",
-    "flake8",
-    "flake8-pyproject",
-    "isort",
+    "ruff",
     "mypy",
     "pytest",
     "pytest-cov",
@@ -145,28 +139,29 @@ cov-report = [
     "coverage report",
 ]
 format = [
-    "isort apollo_access_scanner tests",
-    "black apollo_access_scanner tests",
+    "ruff check --fix apollo_access_scanner tests",
+    "ruff format apollo_access_scanner tests",
 ]
 pre-build = [
-    "isort apollo_access_scanner tests",
-    "black --check apollo_access_scanner tests",
+    "ruff check apollo_access_scanner tests",
+    "ruff format --check apollo_access_scanner tests",
     "mypy apollo_access_scanner",
-    "flake8 apollo_access_scanner tests",
     "bandit -r apollo_access_scanner",
 ]
 
-[tool.black]
+[tool.ruff]
 line-length = 120
-target-version = ["py310", "py311", "py312", "py313"]
+target-version = "py310"
 
-[tool.isort]
-profile = "black"
-line_length = 120
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E203"]
 
-[tool.flake8]
-max-line-length = 120
-extend-ignore = ["E203", "W503"]
+[tool.ruff.lint.isort]
+known-first-party = ["apollo_access_scanner"]
+
+[tool.ruff.format]
+quote-style = "double"
 
 [tool.mypy]
 python_version = "3.10"

@@ -52,7 +52,7 @@ class AWSProvider(CloudProviderBase):
             )
 
         except NoCredentialsError as e:
-            error_msg = f"No AWS credentials found: {e}. Configure credentials via profile, environment variables, or IAM role."
+            error_msg = f"No AWS credentials found: {e}. Configure credentials via profile, env vars, or IAM role."
             recommendation = "Configure AWS credentials via profile, environment variables, or IAM role"
         except ClientError as e:
             error_msg = f"AWS API error: {e}"

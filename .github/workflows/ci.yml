@@ -21,14 +21,11 @@ jobs:
       - name: Install hatch
         run: pip install hatch
 
-      - name: Check import ordering (isort)
-        run: hatch run dev:isort --check-only apollo_access_scanner tests
+      - name: Lint (ruff)
+        run: hatch run dev:ruff check apollo_access_scanner tests
 
-      - name: Check formatting (black)
-        run: hatch run dev:black --check apollo_access_scanner tests
-
-      - name: Lint (flake8)
-        run: hatch run dev:flake8 apollo_access_scanner tests
+      - name: Format check (ruff)
+        run: hatch run dev:ruff format --check apollo_access_scanner tests
 
   typecheck:
     name: Type Check

@@ -26,6 +26,7 @@ class TestMakeComplianceFinding:
     def test_returns_compliance_finding(self):
         finding = _make_finding()
         from horizon_core.reporting.models.ocsf import ComplianceFinding
+
         assert isinstance(finding, ComplianceFinding)
 
     def test_severity_mapping_critical(self):

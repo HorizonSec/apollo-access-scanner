@@ -19,16 +19,19 @@ def test_version_is_string():
 
 def test_scanner_import():
     from apollo_access_scanner.core.scanner import ApolloScanner as _Scanner
+
     assert ApolloScanner is _Scanner
 
 
 def test_scan_report_import():
     from apollo_access_scanner.core.reporting import ScanReport as _SR
+
     assert ScanReport is _SR
 
 
 def test_scan_reporter_import():
     from apollo_access_scanner.core.reporting import ScanReporter as _SRp
+
     assert ScanReporter is _SRp
 
 

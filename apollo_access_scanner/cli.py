@@ -3,10 +3,10 @@
 from typing import Optional
 
 import typer
+from horizon_core import create_cli
 
 from apollo_access_scanner.__about__ import __version__
 from apollo_access_scanner.core.scanner import ApolloScanner
-from horizon_core import create_cli
 
 cli_wrapper = create_cli(
     app_name="Apollo",
