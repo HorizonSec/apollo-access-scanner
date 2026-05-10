@@ -37,7 +37,7 @@ def test_scan_reporter_import():
 
 def test_provider_classes():
     assert isinstance(PROVIDER_CLASSES, dict)
-    assert "AWS" in PROVIDER_CLASSES
+    assert set(PROVIDER_CLASSES.keys()) == {"AWS", "GCP", "Azure"}
 
 
 def test_all_exports_accessible():
