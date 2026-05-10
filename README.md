@@ -29,8 +29,8 @@ Before using this template, ensure you have:
 1. **Use this template** by clicking the "Use this template" button at the top of this repository
 2. **Clone your new repository**:
    ```bash
-   git clone https://github.com/HorizonSec/your-new-repo.git
-   cd your-new-repo
+   git clone https://github.com/HorizonSec/apollo-access-scanner.git
+   cd apollo-access-scanner
    ```
 3. **Customize the template**:
    - Update this README.md with your project-specific information
